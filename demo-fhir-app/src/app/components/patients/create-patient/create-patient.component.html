@@ -1,0 +1,88 @@
+
+<form class="mt-5" *ngIf="this.form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="formgrid grid">
+        <div class="col-12 md:col-6 my-3">
+            <span class="p-float-label">
+                <input pInputText type="text" formControlName="givenNames" id="givenNames" class="w-full">
+                <label htmlFor="givenNames">Name: </label>
+            </span>
+            <span *ngIf="form.controls.givenNames!.invalid && ( form.controls.givenNames!.dirty || form.controls.givenNames!.touched )" class="input-error-msg">Required field</span>
+        </div>
+
+        <div class="col-12 md:col-6 my-3">
+            <span class="p-float-label">
+                <input pInputText type="text" formControlName="familyName" id="familyName"  class="w-full">
+                <label htmlFor="familyName">Family Name: </label>
+            </span>
+            <span *ngIf="form.controls.familyName!.invalid && ( form.controls.familyName!.dirty || form.controls.familyName!.touched)" class="input-error-msg">Required field</span>
+        </div>
+
+        <div class="field col-12 md:col-6 my-3">
+            <span class="p-float-label">
+                <p-calendar dateFormat="mm/dd/yy" formControlName="birthDate" id="birthDate" [showIcon]="true" placeholder="mm/dd/yyyy"></p-calendar>
+                <label htmlFor="birthDate" class="w-full">Birth Date: </label>
+            </span>
+            <span *ngIf="form.controls.birthDate!.invalid && ( form.controls.birthDate!.dirty || form.controls.birthDate!.touched )" class="input-error-msg">Required field</span>
+        </div>
+
+        <div class="field col-12 md:col-6 my-3">
+            <span class="">Gender: </span>
+            <div class="col-12 grid grid-nogutter m-0 ">
+                <div *ngFor="let genderCode of genderOptions" class="my-1 col-12 md:col-6">
+                    <p-radioButton [inputId]="genderCode" [value]="genderCode" formControlName="gender"></p-radioButton>
+                    <label [for]="genderCode" class="ml-2">{{  genderCode | titlecase }}</label>
+                </div>
+            </div>
+            <span *ngIf="form.controls.gender!.invalid && ( form.controls.gender!.dirty || form.controls.gender!.touched )" class="input-error-msg">Required field</span>
+        </div>
+        <div class="field col-12 md:col-6 my-3">
+            <span class="p-float-label">
+                <input pInputText formControlName="email" id="email" class="w-full">
+                <label htmlFor="email">Email: </label>
+            </span>
+            <span *ngIf="form.controls.email!.invalid && ( form.controls.email!.dirty || form.controls.email!.touched )" class="input-error-msg">Required email</span>
+        </div>
+       
+        <div class="field col-12 md:col-6 my-3">
+            <span class="p-float-label">
+                <input pInputText type="text" formControlName="address" id="address" class="w-full">
+                <label htmlFor="address">Address: </label>
+            </span>
+            <span *ngIf="form.controls.address!.invalid && ( form.controls.address!.dirty || form.controls.address!.touched )" class="input-error-msg">Mensagem de erro</span>
+        </div>
+
+        <div class="field col-12 md:col-6 my-3">
+            <span class="p-float-label">
+                <input pInputText type="text" formControlName="city" id="city" class="w-full">
+                <label htmlFor="city">City: </label>
+            </span>
+            <span *ngIf="form.controls.city!.invalid && ( form.controls.city!.dirty || form.controls.city!.touched )" class="input-error-msg">Mensagem de erro</span>
+        </div>
+
+        <div class="field col-12 md:col-6 my-3">
+            <span class="p-float-label">
+                <input pInputText type="text" formControlName="country" id="country" class="w-full">
+                <label htmlFor="country">Country: </label>
+            </span>
+            <span *ngIf="form.controls.country!.invalid && ( form.controls.country!.dirty || form.controls.country!.touched )" class="input-error-msg">Mensagem de erro</span>
+        </div>                        
+
+    </div>
+
+    <div class="w-full text-center">
+        <p-button type="submit" [disabled]="!form.valid || processingForm"> 
+            <p-progressSpinner *ngIf="processingForm" styleClass="w-2rem h-2rem mr-3" strokeWidth="1" animationDuration=".75s"></p-progressSpinner>    
+            Save
+        </p-button>
+    </div>
+
+</form>
+
+<div *ngIf="!form" class="w-full mx-auto align-items-center">
+    <p-progressSpinner styleClass="w-3rem h-3rem" strokeWidth="1" animationDuration=".5s"></p-progressSpinner>
+</div>
+
+
+<p-toast key="error_message" [breakpoints]="{'920px': {width: '80%', right: '0', left: '0'}}" [life]="5000" position="top-left"></p-toast>
+

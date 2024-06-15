@@ -1,0 +1,107 @@
+<div *ngIf="patient.id">
+    <button pButton type="button" icon="pi pi-trash" class="p-button-danger p-button-text p-button-rounded" title="Delete Patient" (click)="confirmDelete($event, patient)"> Delete this patient</button>
+</div>
+
+<form *ngIf="this.form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="formgrid grid mt-5">
+
+        <div class="field col-12 md:col-6 mb-5">
+            <label htmlFor="givenNames" class="{{ form.controls.givenNames!.invalid && (form.controls.givenNames!.dirty || form.controls.givenNames!.touched ) ? 'input-error-label' : ''}}">Name: *</label>
+            <input pInputText type="text" formControlName="givenNames" id="givenNames" class="{{ form.controls.givenNames!.invalid && (form.controls.givenNames!.dirty || form.controls.givenNames!.touched ) ? 'ng-invalid ng-dirty w-full' : 'w-full'}}" required>
+            <span *ngIf="form.controls.givenNames!.invalid && ( form.controls.givenNames!.dirty || form.controls.givenNames!.touched )" class="input-error-msg">Required Field</span>
+        </div>
+
+        <div class="field col-12 md:col-6 mb-5">
+            <label htmlFor="familyName" class="{{ form.controls.familyName!.invalid && (form.controls.familyName!.dirty || form.controls.familyName!.touched ) ? 'input-error-label' : ''}}">Last Name: *</label>
+            <input pInputText type="text" formControlName="familyName" class="{{ form.controls.familyName!.invalid && (form.controls.familyName!.dirty || form.controls.familyName!.touched ) ? 'w-full ng-invalid ng-dirty' : 'w-full'}}" required>
+            <span *ngIf="form.controls.familyName!.invalid && ( form.controls.familyName!.dirty || form.controls.familyName!.touched)" class="input-error-msg">Required Field</span>
+        </div>
+
+        <div class="field col-12 md:col-6 mb-5">
+            <label htmlFor="birthDate" class="{{ form.controls.birthDate!.invalid && (form.controls.birthDate!.dirty || form.controls.birthDate!.touched ) ? 'w-full input-error-label' : 'w-full' }}">Birth Date: </label>
+            <p-calendar placeholder="mm/dd/yyyy" dateFormat="mm/dd/yy" formControlName="birthDate" id="birthDate" class="{{ form.controls.birthDate!.invalid && (form.controls.birthDate!.dirty || form.controls.birthDate!.touched ) ? 'ng-invalid ng-dirty' : '' }}" ></p-calendar>
+            <span *ngIf="form.controls.birthDate!.invalid && ( form.controls.birthDate!.dirty || form.controls.birthDate!.touched )" class="input-error-msg">Must be a valid date</span>
+        </div>
+
+        <div class="field col-12 md:col-6  mb-5">
+            <span class="{{ form.controls.gender!.invalid && (form.controls.gender!.touched || form.controls.gender!.dirty ) ? 'input-error-label' : ''}}">Gender: *</span>
+            <div class="col-12 grid grid-nogutter m-0 ">
+                <div *ngFor="let gender of genderOptions" class="my-2 col-12 md:col-6">
+                    <p-radioButton [inputId]="gender" [value]="gender" formControlName="gender" required></p-radioButton>
+                    <label [for]="gender" class="ml-2">{{  gender | titlecase }}</label>
+                </div>
+            </div>
+            <span *ngIf="form.controls.gender!.invalid && ( form.controls.gender!.dirty || form.controls.gender!.touched )" class="input-error-msg">Required Field</span>
+        </div>
+
+        <div class="field col-12 md:col-6 mb-5">
+            <label htmlFor="email" class="{{ form.controls.email!.invalid && ( form.controls.email!.touched || form.controls.email!.dirty ) ? 'input-error-label' : '' }}" >Email: *</label>
+            <input type="email" formControlName="email" id="email" class="{{ form.controls.email!.invalid && ( form.controls.email!.touched || form.controls.email!.dirty ) ? 'w-full p-inputtext ng-invalid ng-dirty' : 'w-full p-inputtext' }}" required>
+            <span *ngIf="form.controls.email!.invalid && ( form.controls.email!.dirty || form.controls.email!.touched )" class="input-error-msg">
+                <p *ngIf="form.controls.email!.hasError('required')">Required Field</p>
+                <p *ngIf="form.controls.email!.hasError('email')">The field must contain a valid email account</p>
+            </span>
+        </div>
+    
+        <div class="field col-12 md:col-6 mb-5">
+            <span class="{{ form.controls.active!.invalid && ( form.controls.active!.dirty || form.controls.active!.touched ) ? 'input-error-label' : '' }}">Status: *</span>
+            <div class="col-12 grid my-2">
+                <div class="field-checkbox my-2 col-12 md:col-6">
+                    <p-radioButton inputId="active-true" [value]="true" formControlName="active" required></p-radioButton>
+                    <label for="active-true" class="ml-2">Active</label>
+                </div>
+                <div class="field-checkbox my-2 col-12 md:col-6">
+                    <p-radioButton inputId="active-false" [value]="false" formControlName="active" required></p-radioButton>
+                    <label for="active-false" class="ml-2">Inactive</label>
+                </div>
+            </div>
+            <span *ngIf="form.controls.active!.invalid && ( form.controls.active!.dirty || form.controls.active!.touched )" class="input-error-msg">Required Field</span>
+        </div>
+
+        <div class="field col-12 mb-5">
+            <label htmlFor="address">Address: </label>
+            <input pInputText type="text" formControlName="address" id="address" class="w-full" >
+            <span *ngIf="form.controls.address!.invalid && ( form.controls.address!.dirty || form.controls.address!.touched )" class="input-error-msg">Must be a valid address</span>
+        </div>
+
+        <div class="field col-12 md:col-6 mb-5">
+            <label htmlFor="city">City: </label>
+            <input pInputText type="text" formControlName="city" id="city" class="w-full" >
+            <span *ngIf="form.controls.city!.invalid && ( form.controls.city!.dirty || form.controls.city!.touched )" class="input-error-msg">Must be a valid city</span>
+        </div>
+
+        <div class="field col-12 md:col-6 mb-5">
+            <label htmlFor="country">Country: </label>
+            <input pInputText type="text" formControlName="country" id="country" class="w-full" >
+            <span *ngIf="form.controls.country!.invalid && ( form.controls.country!.dirty || form.controls.country!.touched )" class="input-error-msg">Must be a valid country</span>
+        </div>                        
+
+        <div class="w-full text-center">
+            <p-button type="submit" [disabled]="!form.valid || processingForm"> 
+                <p-progressSpinner *ngIf="processingForm" styleClass="w-2rem h-2rem mr-3" strokeWidth="1" animationDuration=".75s"></p-progressSpinner>    
+                Save
+            </p-button>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="!form" class="w-full mx-auto align-items-center">
+    <p-progressSpinner styleClass="w-3rem h-3rem" strokeWidth="1" animationDuration=".5s"></p-progressSpinner>
+</div>
+
+
+<p-toast key="error_message" [breakpoints]="{'920px': {width: '80%', right: '0', left: '0'}}" [life]="5000" position="top-left"></p-toast>
+
+<p-confirmDialog styleClass="delete-dialog" #cd >
+    <ng-template pTemplate="header" styleClass="">
+        <h3>Confirm Delete?</h3>
+        <button pButton type="button" title="Cancel" class="p-button-text" icon="pi pi-times" (click)="cd.reject()"></button>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="flex flex-column gap-2">
+            <button type="button" class="p-button-primary" pButton label="Not really" (click)="cd.reject()"></button>
+            <button type="button" class="p-button-danger p-button-text font-bold" pButton label="Yes, delete this patient" (click)="cd.accept()"></button>
+        </div>
+    </ng-template>
+</p-confirmDialog>

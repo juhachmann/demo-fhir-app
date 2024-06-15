@@ -1,0 +1,57 @@
+<div class="flex align-items-center">
+    <header class="text-xl">Observations</header>
+    <div class="align-items-center">
+        <button pButton (click)="formVisible = true" icon="pi pi-plus-circle" class="p-button-primary p-button-text p-button-rounded" title="Add condition"></button>
+    </div>
+</div>
+
+<div *ngIf="observations" class="mb-5">
+    <div *ngFor="let obs of observations" class="flex justify-content-left">
+        <div class="p-1 m-0 col-12 md:col-6 text-500">{{ obs.code | titlecase }} :</div>
+        <div class="p-1 m-0 col-12 md:col-6">{{ obs.value ?? 'No value informed'}}</div>
+    </div>
+</div>
+
+<p-dialog header="Add observation" [modal]="true" [(visible)]="formVisible" [style]="{ width: '25rem', height: '50rem' }">
+   
+    <form [formGroup]="form" class="card flex flex-wrap gap-3 p-fluid" (submit)="saveObservation()">
+        <div class="flex-auto">
+            <label for="code">Code: </label>
+            <p-dropdown 
+                id="code"
+                [options]="codes"
+                formControlName="code"
+                [filter]="true"
+                [showClear]="true"
+                placeholder="Select a Observation">
+                    <ng-template pTemplate="selectedItem" let-selectedOption>
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ selectedOption | titlecase }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-code pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ code | titlecase}}</div>
+                        </div>
+                    </ng-template>
+            </p-dropdown>             
+        </div>
+        <div class="flex-auto">
+            <label for="value">Value: </label>
+            <p-inputNumber 
+                formControlName="value"
+                inputId="value" 
+                mode="decimal" 
+                [minFractionDigits]="2" 
+                [maxFractionDigits]="5" />              
+        </div>
+        <div class="flex my-2 justify-content-center gap-3">
+            <p-button label="Cancel" severity="secondary" (click)="formVisible = false" />
+            <p-button type="submit" label="Save" [disabled]="!form.valid" />
+        </div>
+    </form>
+</p-dialog>
+
+
+
+

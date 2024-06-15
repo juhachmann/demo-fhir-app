@@ -1,0 +1,86 @@
+
+/* Responsive layout for PrimeNg Table */
+@media (max-width: 992px) {
+
+    .stack-table { /* Não está aplicando! */
+        border-spacing: 0.5rem 1rem !important;
+    }
+
+    .stack-column {
+        padding: 0.5rem 1rem  !important;
+        display: block !important;
+    }
+
+    ::ng-deep .p-column-title {
+        display: inline !important;
+        font-weight: bold;
+    }
+
+}
+
+
+/* Delete Patient Confirm Dialog */ 
+
+@media (min-width: 768px) {
+    ::ng-deep .p-dialog.delete-dialog {
+        max-width: 500px;
+    }
+}
+
+::ng-deep .p-dialog.delete-dialog {
+    width: 85vw;
+}
+
+::ng-deep .p-dialog.delete-dialog .p-dialog-header {
+    padding: 0 1.5rem;
+    margin: 0;
+}
+
+::ng-deep .p-dialog.delete-dialog .p-dialog-content {
+    padding: 1.5rem 3rem 2rem 3rem;
+}
+
+::ng-deep .p-dialog.delete-dialog .p-dialog-footer {
+    text-align: center;
+    padding: 0 3rem 2rem 3rem;
+
+}
+
+::ng-deep .tag-active{
+    background-color: var(--primary-color);
+}
+
+::ng-deep .tag-inactive{
+    background-color: #c0bebe;
+}
+
+
+.section-header {
+    font-size: 18pt;
+}
+
+::ng-deep .patients-table {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+}
+
+::ng-deep .patients-table td.email {
+    max-width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+::ng-deep .patients-table th.email {
+    max-width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+::ng-deep .patients-table tr:hover {
+    background-color: lightgrey;
+}

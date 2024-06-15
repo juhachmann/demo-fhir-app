@@ -1,0 +1,74 @@
+<div><a routerLink="/patients">< Back</a></div>
+
+
+    <p-divider class="mb-8"></p-divider>
+
+    <div *ngIf="patient" class="grid mt-3">
+        <div class="flex col-12 pt-3 py-3 pr-5 md:col-3 justify-content-center align-items-top">
+            <div class="">
+                <img class="border-5 border-round" style="max-width: 100%;" [src]="patient.photo" alt="Photo">
+            </div>
+        </div>
+        <div class="col-12 mb md:col-9">
+            <div class="flex gap-3 align-content-left">
+                <p><span class="font-bold text-2xl text-500"> {{ patient.givenNames + " " + patient.familyName }}</span> </p>
+                <div class="align-content-center align-items-center">
+                    <button pButton (click)="updatePatient()" icon="pi pi-user-edit" class="p-button-primary p-button-text p-button-rounded" title="Edit Patient"></button>
+                    <button pButton (click)="confirmDelete()" icon="pi pi-trash" class="p-button-danger p-button-text p-button-rounded" title="Delete Patient"></button>
+                </div> 
+            </div>
+            <div class="mb-5">
+                <div class="flex justify-content-left">
+                    <div class="p-1 m-0 col-12 md:col-2 text-500">Gender:</div>
+                    <div class="p-1 m-0 col-12 md:col-10">{{patient.gender | titlecase}}</div>
+                </div>
+                <div class="flex justify-content-left">
+                    <div class="p-1 m-0 col-12 md:col-2 text-500">Age:</div>
+                    <div class="p-1 m-0 col-12 md:col-10">{{getAge(patient)}}</div>
+                </div>
+                <div class="flex gap-1 justify-content-left">
+                    <div class="p-1 m-0 col-12 md:col-2 text-500">Birth Date:</div>
+                    <div class="p-1 m-0 col-12 md:col-10">{{patient.birthDate | date : 'yyyy/MM/dd'}}</div>
+                </div>
+                <div class="flex gap-1 justify-content-left">
+                    <div class="p-1 m-0 col-12 md:col-2 text-500">Email:</div>
+                    <div class="p-1 m-0 col-12 md:col-10">{{patient.email}}</div>
+                </div>
+                <div class="flex gap-1 justify-content-left">
+                    <div class="p-1 m-0 col-12 md:col-2 text-500">Address:</div>
+                    <div class="p-1 m-0 col-12 md:col-10">{{patient.address}}</div>
+                </div>
+                <div class="flex gap-1 justify-content-left">
+                    <div class="p-1 m-0 col-12 md:col-2 text-500">City:</div>
+                    <div class="p-1 m-0 col-12 md:col-10">{{patient.city}}</div>
+                </div>
+                <div class="flex gap-1 justify-content-left">
+                    <div class="p-1 m-0 col-12 md:col-2 text-500">Country:</div>
+                    <div class="p-1 m-0 col-12 md:col-10">{{patient.country}}</div>
+                </div>
+            </div>
+            <p-divider class="my-8"></p-divider>
+            <div *ngIf="patient" class="grid mt-5">
+                <app-manage-observations class="col-12 md:col-6" [patient]="patient"></app-manage-observations>
+                <app-manage-conditions class="col-12 md:col-6" [patient]="patient"></app-manage-conditions>
+            </div>
+        
+        </div>
+    </div>
+
+
+
+<p-toast key="error_message" [breakpoints]="{'920px': {width: '80%', right: '0', left: '0'}}" [life]="5000" position="top-left"></p-toast>
+
+<p-confirmDialog styleClass="delete-dialog" #cd >
+    <ng-template pTemplate="header" styleClass="">
+        <h3>Confirm Delete?</h3>
+        <button pButton type="button" title="Cancel" class="p-button-text" icon="pi pi-times" (click)="cd.reject()"></button>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="flex flex-column gap-2">
+            <button type="button" class="p-button-primary" pButton label="Not really" (click)="cd.reject()"></button>
+            <button type="button" class="p-button-danger p-button-text font-bold" pButton label="Yes, delete this patient" (click)="cd.accept()"></button>
+        </div>
+    </ng-template>
+</p-confirmDialog>

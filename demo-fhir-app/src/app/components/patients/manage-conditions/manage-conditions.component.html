@@ -1,0 +1,40 @@
+
+<div class="flex align-items-center">
+    <header class="text-xl">Conditions</header>
+    <div class="align-items-center">
+        <button pButton (click)="formVisible = true" icon="pi pi-plus-circle" class="p-button-primary p-button-text p-button-rounded" title="Add condition"></button>
+    </div>
+</div>
+
+<div class="flex">
+    <div *ngFor="let cond of conditions" class="mr-2">
+        <p-chip *ngIf="cond.code" [label]="cond.code | titlecase" />
+    </div>
+</div>
+
+<p-dialog header="Add condition" [modal]="true" [(visible)]="formVisible" [style]="{ width: '25rem', height: '50rem' }">    <div class="flex-auto">
+        <label for="code">Code: </label>
+        <p-dropdown 
+            id="code"
+            #cd
+            [options]="codes"
+            [filter]="true"
+            [showClear]="true"
+            [editable]="true"
+            placeholder="Select or add a Condition">                
+                <ng-template let-code pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        <div>{{ code | titlecase}}</div>
+                    </div>
+                </ng-template>
+        </p-dropdown>
+    </div>        
+    <div class="flex my-5 justify-content-center gap-3">
+        <p-button label="Cancel" severity="secondary" (click)="formVisible = false" />
+        <p-button label="Save" (click)="saveCondition(cd.value)" />
+    </div>
+</p-dialog>
+
+
+
+
