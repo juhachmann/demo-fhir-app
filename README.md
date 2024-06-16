@@ -32,30 +32,30 @@
 
 ## Screenshots
 
-<figure align="center">
-    <img src='docs/screenshots/screen01.png' width="50%" height="50%" alt="Screen 01" />
-    <figcaption>Dados Mock</figcaption>
-</figure>
+<div align="center">
+  <figure>
+      <figcaption>Dados Mock</figcaption>
+      <img src='docs/screenshots/screen01.png' width="50%" height="50%" alt="Screen 01" />
+  </figure>
+</div>
 
-<figure align="center">
-    <img src='docs/screenshots/screen03.png' width="50%" height="50%" alt="Screen 01" />
-    <figcaption>Adicionando paciente</figcaption>
+<div align="center">
+  <figure>
+      <figcaption>Adicionando paciente</figcaption>
+    <img src='docs/screenshots/screen03.png' width="50%" height="50%" alt="Screen 02" />
 </figure>
+</div>
 
-<figure align="center">
-    <img src='docs/screenshots/screen04.png' width="50%" height="50%" alt="Screen 01" />
-    <figcaption>Detalhes de paciente</figcaption>
+<div align="center">
+  <figure>
+      <figcaption>Adicionando informações médicas</figcaption>
+      <img src='docs/screenshots/screen05.png' width="50%" height="50%" alt="Screen 04" />
 </figure>
-
-<figure align="center">
-    <img src='docs/screenshots/screen05.png' width="50%" height="50%" alt="Screen 01" />
-    <figcaption>Adicionando informações médicas</figcaption>
-</figure>
-
+</div>
 
 ## FHIR
 
-🚧 (O que é FHIR, documentação, implementações)
+🚧 (... o que é FHIR, documentação, implementações)
 
 ## Instalação
 
@@ -99,9 +99,11 @@ $ ng serve
 
 ## Projeto
 
-🚧 (abordagem, mapping domain data X fhir std)
+🚧 (... abordagem, mapping domain data X fhir std)
 
 ## Créditos
+
+> Demo derivada de um projeto desenvolvido pelo GECAD/ISEP/IPP. Escolhas de stack e estratégias de implementação são oriundas da equipe do projeto. Agradecimento especial a Rafael Martins, que orientou a implementação inicial das funcionalidades adaptadas para esta demo. 
 
 Este projeto é construído com:
 
@@ -112,5 +114,5 @@ Este projeto é construído com:
 - [PrimeFlex](https://primeflex.org/)
 
 
-> Demo derivada de um projeto desenvolvido pelo GECAD/ISEP/IPP. Escolhas de stack e estratégias de implementação são oriundas da equipe do projeto. Agradecimento especial a Rafael Martins, que orientou a implementação inicial das funcionalidades adaptadas para esta demo. 
+
 
