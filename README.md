@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-<h4 align="center">Demo para aplicações de dados médicos com padrão FHIR, construído com Angular</h4>
+<h4 align="center">Demo de aplicação na área da saúde com padronização HL7 FHIR, desenvolvida com Angular</h4>
 
 <p align="center">
   <a href="#features">Features</a> •
@@ -15,7 +15,6 @@
   <a href="#FHIR">FHIR</a> •
   <a href="#instalação">Instalação</a> •
   <a href="#projeto">Projeto</a> •
-  <a href="#créditos">Créditos</a>
   <a href="#créditos">Créditos</a>
 </p>
 
@@ -25,7 +24,7 @@
 * Gerenciamento de Pacientes
   - Adicione pacientes e gerencie suas informações
 * Interoperabilidade com FHIR
-  - Compatibilidade com padronização FHIR (fhir r4)
+  - Padronização HL7 FHIR (fhir r4)
 * Mock Data
   - Dados mock para testes
 * Idioma: Inglês
@@ -33,24 +32,18 @@
 ## Screenshots
 
 <div align="center">
-  <figure>
-      <figcaption>Dados Mock</figcaption>
-      <img src='docs/screenshots/screen01.png' width="50%" height="50%" alt="Screen 01" />
-  </figure>
+  <p>Dados Mock</p>
+  <img src='docs/screenshots/screen01.png' width="50%" height="50%" alt="Screen 01" />
 </div>
 
 <div align="center">
-  <figure>
-      <figcaption>Adicionando paciente</figcaption>
-    <img src='docs/screenshots/screen03.png' width="50%" height="50%" alt="Screen 02" />
-</figure>
+  <p>Visualização de pacientes</p>
+  <img src='docs/screenshots/screen02.png' width="50%" height="50%" alt="Screen 02" />
 </div>
 
 <div align="center">
-  <figure>
-      <figcaption>Adicionando informações médicas</figcaption>
-      <img src='docs/screenshots/screen05.png' width="50%" height="50%" alt="Screen 04" />
-</figure>
+  <p>Gerenciando detalhes de um paciente</p>
+  <img src='docs/screenshots/screen05.png' width="50%" height="50%" alt="Screen 04" />
 </div>
 
 ## FHIR
@@ -112,7 +105,3 @@ Este projeto é construído com:
 - [Angular](https://angular.dev/)
 - [PrimeNG](https://primeng.org/)
 - [PrimeFlex](https://primeflex.org/)
-
-
-
-
