@@ -16,6 +16,7 @@
   <a href="#instalação">Instalação</a> •
   <a href="#projeto">Projeto</a> •
   <a href="#créditos">Créditos</a>
+  <a href="#créditos">Créditos</a>
 </p>
 
 
@@ -104,9 +105,12 @@ $ ng serve
 
 Este projeto é construído com:
 
-- [HAPI FHIR JPA SERVER STARTER](https://hapifhir.io/hapi-fhir/docs/server_jpa/introduction.html)
+- [HAPI FHIR JPA Server Starter](https://hapifhir.io/hapi-fhir/docs/server_jpa/introduction.html)
 - [@types/fhir](https://www.npmjs.com/package/@types/fhir)
-- [Angular]()
+- [Angular](https://angular.dev/)
+- [PrimeNG](https://primeng.org/)
+- [PrimeFlex](https://primeflex.org/)
+
 
 > Demo derivada de um projeto desenvolvido pelo GECAD/ISEP/IPP. Escolhas de stack e estratégias de implementação são oriundas da equipe do projeto. Agradecimento especial a Rafael Martins, que orientou a implementação inicial das funcionalidades adaptadas para esta demo. 
 
