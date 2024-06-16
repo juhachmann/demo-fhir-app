@@ -14,7 +14,7 @@
   <a href="#FHIR">FHIR</a> •
   <a href="#instalação">Instalação</a> •
   <a href="#projeto">Projeto</a> •
-  <a href="#créditos">Créditos</a> •
+  <a href="#créditos">Créditos</a>
 </p>
 
 <div align="center">
@@ -79,8 +79,11 @@ $ npm install --legacy-peer-deps
 
 This software uses the following Open Source packages:
 
-- [HAPI FHIR JPA SERVER STARTER](https://hapifhir.io/hapi-fhir/docs/server_jpa/introduction.html)
+- [HAPI FHIR JPA Server Starter](https://hapifhir.io/hapi-fhir/docs/server_jpa/introduction.html)
 - [@types/fhir](https://www.npmjs.com/package/@types/fhir)
+- [PrimeNG](https://primeng.org/)
+- [PrimeFlex](https://primeflex.org/)
+
 
 Agradecimentos
 
