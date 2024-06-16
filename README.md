@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <img src="" alt="Logo">
+  <img src="" alt="">
   <br>
   Demo fhir App
   <br>
@@ -11,14 +11,14 @@
 
 <p align="center">
   <a href="#features">Features</a> •
-  <a href="#FHIR">FHIR</a>
+  <a href="#FHIR">FHIR</a> •
   <a href="#instalação">Instalação</a> •
-  <a href="#projeto">Projeto</a>
+  <a href="#projeto">Projeto</a> •
   <a href="#créditos">Créditos</a> •
 </p>
 
 <div align="center">
-  <img src="" width="40%" height="40%" alt="Demo">
+  <img src="" width="40%" height="40%" alt="">
 </div>
 
 
