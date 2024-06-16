@@ -1,20 +1,88 @@
-🚧 Under Construction
 
-## What is FHIR
-Standardization for Medical Data
-## Why FHIR
-Databases interoperability that aims to facilitate data exchange for medical and scientifical purposes
-## Development Tools and Projects
-### HAPI
-A Java FHIR implementation, with a 'ready-to-use' server
-### FHIR TS
-TypeScript data types library for FHIR types
-## Project Structure
-### Types
-Domain types X FHIR types
-### Mapping
-Classes responsable for mapping between domain types and fhir types
-### Fhir Service
-Communicates with FHIR server
-### Local Resources Services
-Performs mapping, error handling and other domain logic
+<h1 align="center">
+  <br>
+  <img src="" alt="Logo">
+  <br>
+  Demo fhir App
+  <br>
+</h1>
+
+<h4 align="center">Demo app for use with FHIR standards, built with Angular</h4>
+
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#FHIR">FHIR</a>
+  <a href="#instalação">Instalação</a> •
+  <a href="#projeto">Projeto</a>
+  <a href="#créditos">Créditos</a> •
+</p>
+
+<div align="center">
+  <img src="" width="40%" height="40%" alt="Demo">
+</div>
+
+
+## Features
+
+* Gerenciamento de Pacientes
+  - Adicione pacientes e gerencie suas informações
+* Interoperabilidade com FHIR
+  - Compatibilidade com padronização FHIR (fhir r4)
+* Mock Data
+  - Dados mock para testes
+* Language: English
+
+## FHIR
+
+🚧 (O que é FHIR, documentação, implementações)
+
+## Instalação
+
+Pré-requesitos
+- [Java SDK 17+](https://openjdk.org/projects/jdk/17/)
+- [Maven](https://maven.apache.org/)
+- [Node.js](https://nodejs.org)  
+
+Servidor FHIR
+
+```bash
+# Clone o repositório da implementação HAPI - FHIR
+$ git clone https://github.com/hapifhir/hapi-fhir-jpaserver-starter
+
+# Vá para a pasta do servidor
+$ cd hapi-fhir-jpaserver-starter
+
+# Instale e execute (a instalação pode demorar alguns minutos)
+$ mvn spring-boot:run
+```
+
+Angular App
+
+```bash
+# Clone este repositório
+$ git clone https://github.com/juhachmann/demo-fhir-app
+
+# Vá para a pasta do repositório
+$ cd demo-fhir-app
+
+# Instale e execute (a instalação pode demorar alguns minutos)
+$ npm install --legacy-peer-deps
+
+# Em seu navegador, acesse localhost:4200
+```
+
+## Projeto
+
+🚧 (abordagem, mapping domain data X fhir std)
+
+## Créditos
+
+This software uses the following Open Source packages:
+
+- [HAPI FHIR JPA SERVER STARTER](https://hapifhir.io/hapi-fhir/docs/server_jpa/introduction.html)
+- [@types/fhir](https://www.npmjs.com/package/@types/fhir)
+
+Agradecimentos
+
+- GECAD / Rafael
+
