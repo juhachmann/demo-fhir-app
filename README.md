@@ -18,7 +18,7 @@
 </p>
 
 <div align="center">
-  <img src="blob/main/screen01.png" width="60%" height="60%" alt="demo">
+  <img src="screen01.png" width="60%" height="60%" alt="demo">
 </div>
 
 
