@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FhirService } from './fhir.service';
 import { PatientService } from './patient.service';
-import { Patient } from 'fhir/r4';
+import { Bundle, Patient } from 'fhir/r4';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +29,9 @@ export class MockService {
       "gender": "female",
       "birthDate": "1945-07-01T00:00:00.000",
       "address": [{
-      "text": "Some Street",
-      "city": "Some city",
-      "country": "Some country"
+      "text": "Cool Street",
+      "city": "Some old city",
+      "country": "Some other country"
       }],
       "photo": [{"url" : "/mock/debbie.jpg"}]
     }, 
@@ -106,7 +106,7 @@ export class MockService {
         "value": "kwest@email.com"
       }
       ],
-      "gender": "female",
+      "gender": "male",
       "birthDate": "1977-06-08T00:00:00.000",
       "address": [{
       "text": "Some Street",
@@ -118,10 +118,12 @@ export class MockService {
   ]
 
 
-  public saveMockPatients() : void {
+  public saveMockPatients() : Observable<Bundle<any> | undefined> {
+    let requests : {resource: Patient, request: {method: "POST", url: "/Patient"}}[] = []
     this.mockPatients.forEach(pat => 
-      this.fhirService.createPatient(pat).subscribe()
+      requests.push({resource: pat, request: {url: "/Patient", method: "POST"}})
     )
+    return this.fhirService.makeTransaction(requests);
   }
 
   

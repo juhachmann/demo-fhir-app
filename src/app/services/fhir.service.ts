@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import {
@@ -10,12 +10,12 @@ import {
   Resource
 } from 'fhir/r4';
 
-import { catchError, Observable, of } from 'rxjs';
-import config from '../../assets/config.json';
+import { catchError, Observable, of, tap } from 'rxjs';
+import config from '../../config.json';
 
 interface TransactionEntry {
-  fullUrl: string,
-  resource: Resource,
+  fullUrl?: string,
+  resource?: Resource,
   request: {
       method: string,
       url: string
@@ -35,12 +35,16 @@ enum HttpMethods {
 })
 export class FhirService {
 
+  url = config.fhir.url;
+  headers = new HttpHeaders()
 
   constructor (
     private http: HttpClient
-  ) {}
-
-   url = config.url.fhir;
+  ) {
+    if(!config.fhir.cache) {      
+      this.headers = new HttpHeaders().set('Cache-Control', 'no-cache') 
+    }
+  }
 
 
     /**
@@ -50,7 +54,9 @@ export class FhirService {
    */
     getConditionByPatientId(id: string) : Observable<Bundle<Condition> | undefined> {
       return this.http
-        .get<Bundle<Condition>>(`${this.url}/Condition?subject=${id}`)
+        .get<Bundle<Condition>>(`${this.url}/Condition?subject=${id}`,
+          {headers: this.headers}
+        )
         //.pipe(catchError(this.fhir.handleError('getConditionByPatient', undefined)))
     }
   
@@ -98,7 +104,9 @@ export class FhirService {
    */
   getObservationsByPatientId(id: string) : Observable<Bundle<Observation> | undefined> {
     return this.http
-      .get<Bundle<Observation>>(`${this.url}/Observation?subject=${id}`)
+      .get<Bundle<Observation>>(`${this.url}/Observation?subject=${id}`,
+        {headers: this.headers}
+      )
       //.pipe(catchError(this.fhir.handleError('getObservationByPatient', undefined)));
   }
 
@@ -162,8 +170,12 @@ export class FhirService {
    */
     getPatients() : Observable<Bundle<Patient> | undefined> {
       let url = `${this.url}/Patient?_count=99`;
+      console.log(JSON.stringify(this.headers));
+      
       return this.http
-        .get<Bundle<Patient>>(url)
+        .get<Bundle<Patient>>(url,
+          {headers: this.headers}
+        )
         //.pipe(catchError(this.fhir.handleError('getPatients', undefined)));
     }
   
@@ -174,8 +186,12 @@ export class FhirService {
      * @returns Observable<Patient | undefined> 
      */
     getPatientById(id: string): Observable<Patient | undefined> {
+      console.log("From fhir service...");
       return this.http
-        .get<Patient>(`${this.url}/Patient/${id}`)
+        .get<Patient>(`${this.url}/Patient/${id}`,
+          {headers: this.headers}
+        ).pipe(tap(res => console.log("from tap" + JSON.stringify(res)))
+        )
         //.pipe(catchError(this.fhir.handleError('getPatientById', undefined)));
     }
   
@@ -187,7 +203,9 @@ export class FhirService {
      */
     createPatient(patient: Patient) : Observable<Patient | undefined> {
       return this.http
-        .post<Patient>(`${this.url}/Patient`, patient)
+        .post<Patient>(`${this.url}/Patient`, patient,
+          {headers: this.headers}
+        )
         //.pipe(catchError(this.fhir.handleError('createPatient', undefined)));
     }
   
@@ -221,15 +239,22 @@ export class FhirService {
    * @param transactionBody 
    * @returns 
    */
-  public makeTransaction(requests : TransactionEntry[]) : Observable<Bundle<any> | undefined> {
-    let url = config.url;  
-    let transaction = {
+  public makeTransaction(requests : TransactionEntry[]) : Observable<Bundle<any> | undefined> {  
+    
+    console.log(JSON.stringify(requests[0]));
+
+    
+    let transaction  = {
       resourceType : "Bundle",
       id : "bundle-transaction",
       type : "transaction",
       entry : requests }
+     
+    console.log("Transaction: ");      
+    console.log(JSON.stringify(transaction));
+      
     return this.http
-      .post<Bundle<any>>(`${url}`, transaction)
+      .post<Bundle<any>>(`${this.url}`, transaction)
       //.pipe(catchError(this.error.handleError('transaction', undefined)));
   }
 

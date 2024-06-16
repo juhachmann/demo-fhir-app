@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { map, Observable } from 'rxjs';
+import { catchError, map, mergeMap, Observable } from 'rxjs';
 import { FhirService } from './fhir.service';
 import { PatientDTO } from '../models/patient-dto';
 import { FhirMappingService } from './fhir-mapping.service';
@@ -8,10 +8,13 @@ import { log } from 'console';
 import { ConditionDTO } from '../models/condition-dto';
 import { ObservationDTO } from '../models/observation-dto';
 import { PatientConditionCode } from '../models/patient-condition-code';
+import { Bundle } from 'fhir/r4';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
+
 
 export class PatientService {
 
@@ -60,9 +63,11 @@ export class PatientService {
 
 
   public getPatientById(id: string): Observable<PatientDTO | undefined> {
+    console.log("id to search: " + id);
     return this.fhirService.getPatientById(id).pipe(
       map(patient => {
         if(!patient) return undefined;
+        console.log(patient);
         return this.mapper.mapToPatientDTO(patient);
       })
     );
@@ -75,65 +80,18 @@ export class PatientService {
    * @param id 
    * @returns 
    */
-  public delete(id: string) : Observable<string[]>{
-    return this.fhirService.deletePatient(id).pipe(
-      map(outcome => {
-        let issues : string[] = []
-        outcome.issue.forEach(issue => {
-            if(issue.details?.text) 
-              issues.push(issue.details.text)
-        });
-        return issues;
-      })
-    );
-  }
+  public delete(patient: PatientDTO, conditions: ConditionDTO[], observations: ObservationDTO[]) : Observable<any> {
+    let requests : {
+      request : { method : "DELETE", url: string} 
+    }[] = []
+    conditions.forEach(cond => requests.push({request: {method: "DELETE", url: "Condition/" + cond.id}}))  
+    observations.forEach(obs => requests.push({request: {method: "DELETE", url: "Observation/" + obs.id}}))  
+    requests.push({request: {method: "DELETE", url: "Patient/" + patient.id}})  
 
-
-  private handleCascadeOnDeleteForPatient() {
-    // let requests : { request : { method : string, url: string} }[] = []
+    return this.fhirService.makeTransaction(requests);
   
-    // this.observationService.getObservationsByPatient(patient).subscribe((observations) => {
-    //   if(observations?.entry) {
-    //     observations.entry!.forEach((entry) => {
-    //       requests.push({
-    //         request : {
-    //           method : "DELETE",
-    //           url : "Observation/" + entry!.resource!.id
-    //         }
-    //       })
-    //     })
-    //   }
-
-    //   this.conditionService.getConditionByPatient(patient).subscribe((conditions) => {
-    //     if(conditions?.entry) {
-    //       conditions.entry!.forEach((entry) => {
-    //         requests.push({
-    //           request : {
-    //             method : "DELETE",
-    //             url : "Condition/" + entry!.resource!.id
-    //           }
-    //         })
-    //       })
-    //     }
-
-    //     requests.push({
-    //       request : {
-    //         method : "DELETE",
-    //         url : "Patient/" + patient.id
-    //       }
-    //     })
-        
-    //     this.fhirService.makeTransaction(requests).subscribe((response) => {
-    //       if(!response) {
-    //         this.showToastMessage('Sorry, patient could not be deleted from the database!', 'warn')
-    //         return
-    //       }
-    //       this.showToastMessage('Patient was deleted from the database', 'success')
-    //       this.getPatients();
-    //     })
-    //   })
-    // })
   }
+
 
 
   public getPatientConditions(id: string): Observable<ConditionDTO[]> {

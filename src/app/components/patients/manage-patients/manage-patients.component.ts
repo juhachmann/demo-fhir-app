@@ -23,6 +23,7 @@ import { PatientDTO } from '../../../models/patient-dto';
 import { Subscription } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { MockService } from '../../../services/mock.service';
+import config from "../../../../config.json";
 
 interface Column {
   field: string,
@@ -58,6 +59,8 @@ export class ManagePatientsComponent implements OnInit, OnDestroy {
   sortingColumn : string | undefined;
 
   patients : PatientDTO[] = [];
+
+  allowMockData : boolean = config.data.mock
 
   subscriptions: Subscription[] = []
   
@@ -138,8 +141,16 @@ export class ManagePatientsComponent implements OnInit, OnDestroy {
   }
 
   genMockData() : void {
-    this.mockService.saveMockPatients();
-    this.getPatients();
+    let sub = this.mockService.saveMockPatients().subscribe({
+      next: data => console.log(data),
+      error: err => {
+        console.log(err);
+        if(err.status == 0)
+          this.messageService.add({sticky: true, key: 'mainApp', severity: 'error', detail: 'Are you sure the fhir server is running on the correct host?'})
+      },
+      complete: () => this.getPatients()
+    })
+    this.subscriptions.push(sub);
   }
 
 }

@@ -1,0 +1,9 @@
+{
+    "fhir": {
+        "url": "http://localhost:8080/fhir",
+        "cache": false
+    },
+    "data" : {
+        "mock" : true
+    }
+}

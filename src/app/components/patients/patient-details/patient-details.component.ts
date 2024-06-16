@@ -2,11 +2,12 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CommonModule, TitleCasePipe, DatePipe } from '@angular/common';
 import { PatientDTO } from '../../../models/patient-dto';
-import { ManageConditionsComponent } from '../manage-conditions/manage-conditions.component';
-import { ManageObservationsComponent } from '../manage-observations/manage-observations.component';
+import { PatientConditionsComponent } from '../patient-conditions/patient-conditions.component';
+import { PatientObservationsComponent } from '../patient-observations/patient-observations.component';
 import { Subscription } from 'rxjs';
 import { CreatePatientComponent } from '../create-patient/create-patient.component';
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
@@ -14,14 +15,18 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { PatientService } from '../../../services/patient.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Router } from '@angular/router';
-import { PatientDTOImpl } from '../../../models/patient-dto-impl';
+import { ConditionDTO } from '../../../models/condition-dto';
+import { ObservationDTO } from '../../../models/observation-dto';
+import { Location } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-patient-details',
   templateUrl: './patient-details.component.html',
   styleUrls: ['./patient-details.component.css'],
-  imports: [ConfirmDialogModule, DatePipe, ToastModule, RouterLink, ChipModule, DividerModule, TitleCasePipe, CommonModule, ManageConditionsComponent, ManageObservationsComponent],
+  imports: [ConfirmDialogModule, DatePipe, ToastModule, ButtonModule, ChipModule, 
+    DividerModule, TitleCasePipe, CommonModule, PatientConditionsComponent, 
+    PatientObservationsComponent],
   providers: [ConfirmationService, DialogService]
 })
 
@@ -32,7 +37,7 @@ export class PatientDetailsComponent implements OnInit, OnDestroy{
     private dialogService: DialogService,
     private messageService: MessageService,
     private patientService : PatientService,
-    private router : Router
+    private location: Location
   ) {}
 
   @Input() id : string = ''
@@ -42,6 +47,10 @@ export class PatientDetailsComponent implements OnInit, OnDestroy{
   ref: DynamicDialogRef | undefined = undefined
 
   patient : PatientDTO | undefined;
+  conditions: ConditionDTO [] | undefined;
+  observations: ObservationDTO[] | undefined;
+
+  
 
   ngOnInit(): void {
     this.getPatient();
@@ -49,6 +58,12 @@ export class PatientDetailsComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subs => subs.unsubscribe())
+    console.log("Object Destroyed!");
+    this.subscriptions.forEach(sub => console.log(sub.closed))
+  }
+
+  back() : void {
+    this.location.back()
   }
 
   /**
@@ -92,12 +107,19 @@ export class PatientDetailsComponent implements OnInit, OnDestroy{
 
   }
 
+  public updateConditions(cond: ConditionDTO[]) {
+    this.conditions = cond
+  }
+
+  public updateObservations(obs: ObservationDTO[]) {
+    this.observations = obs
+  }
 
   private getPatient() : void {
     let subscription = this.patientService.getPatientById(this.id).subscribe({
       next: (response) => {console.log(response);
        if(response) this.patient = response},
-      error: err => console.log(err)
+      error: err => this.showLocalMessage("error", err)
     });
     this.subscriptions.push(subscription);
   }
@@ -123,13 +145,15 @@ export class PatientDetailsComponent implements OnInit, OnDestroy{
       
       
   private deletePatientAndRedirect() {
-    let subscription = this.patientService.delete(this.patient?.id!).subscribe({
+    let subscription = this.patientService.delete(this.patient!, this.conditions!, this.observations!)
+    .subscribe({
       error: err => {
         console.log(err);
+        this.showLocalMessage("error", "Not able to delete this patient")
       },
       complete: () => {
         this.showGlobalMessage();
-        this.router.navigate(['/patients'])
+        this.location.back()
       }
     });
     this.subscriptions.push(subscription);
@@ -139,9 +163,20 @@ export class PatientDetailsComponent implements OnInit, OnDestroy{
   private showGlobalMessage() : void {
     this.messageService.add({
       key: 'mainApp',
-      severity: 'warning',
+      severity: 'warn',
       detail: 'Patient deleted!'
     })
+  }
+
+
+  private showLocalMessage(severity: 'success' | 'warn' | 'error', detail: string) : void {
+    this.messageService.add({
+      key: 'patient-details',
+      severity: severity,
+      detail: detail
+  })
+
+
   }
 
 
