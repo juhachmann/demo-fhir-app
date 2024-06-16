@@ -3,23 +3,20 @@
   <br>
   <img src="" alt="">
   <br>
-  Demo fhir App
+  Demo Fhir App
   <br>
 </h1>
 
-<h4 align="center">Demo app for use with FHIR standards, built with Angular</h4>
+<h4 align="center">Demo para aplicações de dados médicos com padrão FHIR, construído com Angular</h4>
 
 <p align="center">
   <a href="#features">Features</a> •
+  <a href="#screenshots">Screenshots</a> •
   <a href="#FHIR">FHIR</a> •
   <a href="#instalação">Instalação</a> •
   <a href="#projeto">Projeto</a> •
-  <a href="#créditos">Créditos</a> •
+  <a href="#créditos">Créditos</a>
 </p>
-
-<div align="center">
-  <img src="" width="40%" height="40%" alt="">
-</div>
 
 
 ## Features
@@ -30,7 +27,30 @@
   - Compatibilidade com padronização FHIR (fhir r4)
 * Mock Data
   - Dados mock para testes
-* Language: English
+* Idioma: Inglês
+
+## Screenshots
+
+<figure align="center">
+    <img src='docs/screenshots/screen01.png' width="50%" height="50%" alt="Screen 01" />
+    <figcaption>Dados Mock</figcaption>
+</figure>
+
+<figure align="center">
+    <img src='docs/screenshots/screen03.png' width="50%" height="50%" alt="Screen 01" />
+    <figcaption>Adicionando paciente</figcaption>
+</figure>
+
+<figure align="center">
+    <img src='docs/screenshots/screen04.png' width="50%" height="50%" alt="Screen 01" />
+    <figcaption>Detalhes de paciente</figcaption>
+</figure>
+
+<figure align="center">
+    <img src='docs/screenshots/screen05.png' width="50%" height="50%" alt="Screen 01" />
+    <figcaption>Adicionando informações médicas</figcaption>
+</figure>
+
 
 ## FHIR
 
@@ -43,7 +63,9 @@ Pré-requesitos
 - [Maven](https://maven.apache.org/)
 - [Node.js](https://nodejs.org)  
 
-Servidor FHIR
+### Servidor FHIR
+
+Neste projeto utilizamos a implementação HAPI-FHIR JPA-SERVER-STARTER:
 
 ```bash
 # Clone o repositório da implementação HAPI - FHIR
@@ -56,7 +78,7 @@ $ cd hapi-fhir-jpaserver-starter
 $ mvn spring-boot:run
 ```
 
-Angular App
+### Angular App
 
 ```bash
 # Clone este repositório
@@ -65,10 +87,13 @@ $ git clone https://github.com/juhachmann/demo-fhir-app
 # Vá para a pasta do repositório
 $ cd demo-fhir-app
 
-# Instale e execute (a instalação pode demorar alguns minutos)
+# Instale o projeto (a instalação pode demorar alguns minutos)
 $ npm install --legacy-peer-deps
 
-# Em seu navegador, acesse localhost:4200
+# Execute
+$ ng serve
+
+# Em seu navegador, acesse: http://localhost:4200
 ```
 
 ## Projeto
@@ -77,12 +102,11 @@ $ npm install --legacy-peer-deps
 
 ## Créditos
 
-This software uses the following Open Source packages:
+Este projeto é construído com:
 
 - [HAPI FHIR JPA SERVER STARTER](https://hapifhir.io/hapi-fhir/docs/server_jpa/introduction.html)
 - [@types/fhir](https://www.npmjs.com/package/@types/fhir)
+- [Angular]()
 
-Agradecimentos
-
-- GECAD / Rafael
+> Demo derivada de um projeto desenvolvido pelo GECAD/ISEP/IPP. Escolhas de stack e estratégias de implementação são oriundas da equipe do projeto. Agradecimento especial a Rafael Martins, que orientou a implementação inicial das funcionalidades adaptadas para esta demo. 
 
